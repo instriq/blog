@@ -1,26 +1,9 @@
-/*! normalize.css v6.0.0 | MIT License | github.com/necolas/normalize.css */
-
-/* Document
-   ========================================================================== */
-
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in
- *    IE on Windows Phone and in iOS.
- */
-
 html {
   line-height: 1.15; /* 1 */
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
+  text-align: justify;
 }
-
-/* Sections
-   ========================================================================== */
-
-/**
- * Add the correct display in IE 9-.
- */
 
 article,
 aside,
@@ -31,10 +14,6 @@ section {
   display: block;
 }
 
-/**
- * Correct the font size and margin on `h1` elements within `section` and
- * `article` contexts in Chrome, Firefox, and Safari.
- */
 
 h1 {
   font-size: 2em;
@@ -55,18 +34,10 @@ main { /* 1 */
   display: block;
 }
 
-/**
- * Add the correct margin in IE 8.
- */
-
 figure {
   margin: 1em 40px;
 }
 
-/**
- * 1. Add the correct box sizing in Firefox.
- * 2. Show the overflow in Edge and IE.
- */
 
 hr {
   box-sizing: content-box; /* 1 */
