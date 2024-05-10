@@ -1,12 +1,10 @@
 title: LESIS
 description: Laboratory of Engineering Studies in Information Security
 url: https://blog.lesis.lat
-# Only necessary when hosting your site in a sub-directory. Project sites hosted on GitHub Pages are the common use-case of this variable.
 baseurl: # Ex: /project-page
 paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
-# Header Option
 # header: large
 
 sass:
