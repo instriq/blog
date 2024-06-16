@@ -6,7 +6,6 @@ paginate_path: "blog/page:num/"
 permalink: blog/:title/
 
 # header: large
-
 sass:
     style: compressed
 
@@ -24,4 +23,4 @@ social:
     email: contact@lesis.lat
     linkedin: company/lesis-group
 
-google_analytics: "UA-58263416-1"
+google_analytics: ""
