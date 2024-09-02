@@ -174,6 +174,10 @@ Até o momento, o [**Security Gate**](https://github.com/instriq/security-gate/)
 
 Para futuras versões, há planos para expandir as funcionalidades do [**Security Gate**](https://github.com/instriq/security-gate/), incluindo a adição de suporte a novas plataformas de gerenciamento de repositórios como Gitlab e Bitbucket. 
 
+* Esta publicação foi escrita por Giovanni Sagioro: estudante de Ciência da Computação, buscador da sabedoria Perl e pesquisador de segurança. Focado em segurança de aplicativos, descoberta de vulnerabilidades e desenvolvimento de exploits. Como Larry Wall diz — ‘Coisas fáceis devem ser fáceis, e coisas difíceis devem ser possíveis’ — então estou tentando tornar as coisas difíceis possíveis.
+
+---
+
 ### Referências
 
 - [OWASP Top 10 CI/CD Security Risks](https://owasp.org/www-project-top-10-ci-cd-security-risks/)  
