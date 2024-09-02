@@ -43,7 +43,7 @@ Para alcançar esse objetivo, o [**Security Gate**](https://github.com/instriq/s
 
 ### Introdução ao Security Gate
 
-![](../assets/img/security-gate.png)
+![](/assets/img/security-gate.png)
 
 O [**Security Gate**](https://github.com/instriq/security-gate/) foi desenvolvido para integrar-se com as pipelines de desenvolvimento de software, oferecendo uma solução prática para a gestão de alertas de segurança do GitHub. Criado em Perl, o sistema utiliza os recursos de alerta de segurança do GitHub e se integra com GitHub Actions, proporcionando um método para aplicar políticas de segurança e assegurar que o código atenda a critérios específicos antes de ser promovido para produção.
 
