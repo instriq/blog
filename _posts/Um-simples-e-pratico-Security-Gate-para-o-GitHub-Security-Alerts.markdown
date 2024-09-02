@@ -57,7 +57,7 @@ O **Security Gate** inclui os seguintes recursos principais:
 
 - **Scanning de Dependências**  
     
-  Este módulo utiliza os alertas do DependaBot fornecidos pelo GitHub para monitorar vulnerabilidades nas dependências do projeto. O sistema consulta a API do GitHub para alertas de dependência abertos, contabiliza as vulnerabilidades classificadas em diferentes níveis de gravidade (crítico, alto, médio e baixo) e compara essas contagens com os limites configurados. Caso os limites sejam excedidos, a pipeline de CI/CD pode ser bloqueada, garantindo que vulnerabilidades em bibliotecas de terceiros não comprometam o projeto.  
+  Este módulo utiliza os alertas do DependaBot fornecidos pelo GitHub para monitorar vulnerabilidades nas dependências do projeto. O sistema consulta a API do GitHub para alertas de dependência abertos, contabiliza as vulnerabilidades classificadas em diferentes níveis de severidade (crítico, alto, médio e baixo) e compara essas contagens com os limites configurados. Caso os limites sejam excedidos, a pipeline de CI/CD pode ser bloqueada, garantindo que vulnerabilidades em bibliotecas de terceiros não comprometam o projeto.  
     
 - **Scanning de Secrets**  
     
