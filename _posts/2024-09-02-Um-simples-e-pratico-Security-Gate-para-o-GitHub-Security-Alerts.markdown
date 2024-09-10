@@ -61,11 +61,11 @@ O [**Security Gate**](https://github.com/instriq/security-gate/) inclui os segui
     
 - **Scanning de Secrets**  
     
-  O recurso de scanning de secrets integra-se com os alertas de Secret Scanning do GitHub para identificar informações sensíveis que possam ter sido expostas no repositório. A ferramenta recupera e processa alertas de secrets abertos, fornecendo detalhes sobre o número total de alertas e seus locais específicos no código. A configuração de limites para esses alertas ajuda a evitar a implantação de código com secrets expostos, contribuindo para a segurança geral do projeto. Todos os alertas baseado em detecções de secrets são considerados de criticidade alta.  
+  O recurso de scanning de secrets integra-se com os alertas de Secret Scanning do GitHub para identificar informações sensíveis que possam ter sido expostas no repositório. A ferramenta recupera e processa alertas de secrets abertos, fornecendo detalhes sobre o número total de alertas e seus locais específicos no código. A configuração de limites para esses alertas ajuda a evitar a implementação de código com secrets expostos, contribuindo para a segurança geral do projeto. Todos os alertas baseado em detecções de secrets são considerados de severidade alta.  
     
 - **Scanning de Código**  
     
-  O módulo de scanning de código utiliza os alertas de Code Scanning do GitHub para identificar e gerenciar vulnerabilidades na base de código. O sistema agrega os alertas de scanning de código abertos, classifica-os por severidade e verifica se o número de alertas excede os limites estabelecidos. Essa abordagem permite que as vulnerabilidades no código sejam tratadas antes da implantação do código em uma branch produtiva (por exemplo, na main), reduzindo potenciais riscos de segurança.
+  O módulo de scanning de código utiliza os alertas de Code Scanning do GitHub para identificar e gerenciar vulnerabilidades na base de código. O sistema agrega os alertas de scanning de código abertos, classifica-os por severidade e verifica se o número de alertas excede os limites estabelecidos. Essa abordagem permite que as vulnerabilidades no código sejam tratadas antes da implementação do código em uma branch produtiva (por exemplo, na main), reduzindo potenciais riscos de segurança.
 
 Através da integração com o GitHub Actions e da gestão de diversos tipos de alertas de segurança, o [**Security Gate**](https://github.com/instriq/security-gate/) fornece um mecanismo para manter a segurança dos projetos de software durante seu ciclo de vida de desenvolvimento.
 
@@ -159,10 +159,11 @@ A integração do [**Security Gate**](https://github.com/instriq/security-gate/)
 
 ### O Futuro do Security Gate
 
-Atualmente, o [**Security Gate**](https://github.com/instriq/security-gate/) suporta a verificação de alertas de segurança relacionados a dependências, secrets e código, assegurando que projetos atendam aos critérios de segurança estabelecidos antes da implantação. Contudo, existem algumas áreas potenciais para aprimoramento que podem ser exploradas em versões futuras para expandir suas funcionalidades e melhorar a experiência do usuário.
+Atualmente, o [**Security Gate**](https://github.com/instriq/security-gate/) suporta a verificação de alertas de segurança relacionados a dependências, secrets e código, assegurando que projetos atendam aos critérios de segurança estabelecidos antes da implementação. Contudo, existem algumas áreas potenciais para aprimoramento que podem ser exploradas em versões futuras para expandir suas funcionalidades e melhorar a experiência do usuário.
 
-Uma das áreas a ser considerada é a ampliação do suporte a diferentes plataformas de gestão de repositórios como por exemplo Bitbucket e Gitlab.   
-Finalmente, há a possibilidade de expandir a integração do [**Security Gate**](https://github.com/instriq/security-gate/) para incluir alertas provenientes de outras ferramentas de segurança. Isso permitiria uma análise mais abrangente, incorporando dados de segurança de diversas fontes e oferecendo uma visão mais completa do perfil de segurança do projeto.
+Uma das áreas a ser considerada é a ampliação do suporte a diferentes plataformas de gestão de repositórios como por exemplo Bitbucket e Gitlab.
+
+Além disso, há a possibilidade de expandir a integração do [**Security Gate**](https://github.com/instriq/security-gate/) para incluir alertas provenientes de outras ferramentas de segurança. Isso permitiria uma análise mais abrangente, incorporando dados de segurança de diversas fontes e oferecendo uma visão mais completa do perfil de segurança do projeto.
 
 Com essas futuras melhorias, o [**Security Gate**](https://github.com/instriq/security-gate/) poderá ampliar sua cobertura de segurança e melhorar a integração com os processos de desenvolvimento de software, contribuindo para a manutenção das práticas de segurança ao longo do ciclo de vida do software.
 
