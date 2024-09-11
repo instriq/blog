@@ -167,6 +167,8 @@ Além disso, há a possibilidade de expandir a integração do [**Security Gate*
 
 Com essas futuras melhorias, o [**Security Gate**](https://github.com/instriq/security-gate/) poderá ampliar sua cobertura de segurança e melhorar a integração com os processos de desenvolvimento de software, contribuindo para a manutenção das práticas de segurança ao longo do ciclo de vida do software.
 
+---
+
 ### Conclusão
 
 A implementação do [**Security Gate**](https://github.com/instriq/security-gate/) tem o objetivo de melhorar a segurança das pipelines de CI/CD, integrando alertas de segurança diretamente no processo de desenvolvimento através do GitHub Actions. A ferramenta foi projetada para monitorar e gerenciar o risco de alertas de segurança relacionados a dependências, secrets e código, bloqueando a pipeline quando os critérios de segurança definidos não são atendidos.
@@ -174,6 +176,8 @@ A implementação do [**Security Gate**](https://github.com/instriq/security-gat
 Até o momento, o [**Security Gate**](https://github.com/instriq/security-gate/) demonstrou a capacidade de integrar verificações de segurança de maneira eficaz, alinhando-se com a filosofia do *Shift Left* ao antecipar a detecção de vulnerabilidades. A ferramenta oferece uma solução prática e acessível para garantir que apenas código que cumpre com os critérios de segurança avance na pipeline de CI/CD.
 
 Para futuras versões, há planos para expandir as funcionalidades do [**Security Gate**](https://github.com/instriq/security-gate/), incluindo a adição de suporte a novas plataformas de gerenciamento de repositórios como Gitlab e Bitbucket. 
+
+---
 
 * Esta publicação foi escrita por Giovanni Sagioro: estudante de Ciência da Computação, buscador da sabedoria Perl e pesquisador de segurança. Focado em segurança de aplicativos, descoberta de vulnerabilidades e desenvolvimento de exploits. Como Larry Wall diz — ‘Coisas fáceis devem ser fáceis, e coisas difíceis devem ser possíveis’ — então estou tentando tornar as coisas difíceis possíveis.
 
