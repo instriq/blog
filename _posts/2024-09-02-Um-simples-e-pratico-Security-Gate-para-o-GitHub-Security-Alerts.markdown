@@ -4,19 +4,9 @@ title:  "Um simples e prático Security Gate para o GitHub Security Alerts"
 date:   2024-09-02
 ---
 
-Índice:
-
-- Sumário  
-- Contextualização  
-- Objetivo  
-- Introdução ao Security Gate  
-- O futuro do Security Gate  
-- Conclusão  
-- Referências
-
-### Sumário
-
 Garantir a segurança do código antes de chegar à produção é crucial. No entanto, isso exige a implementação de soluções que realmente se integrem ao fluxo contínuo de integração e desenvolvimento. Com a crescente complexidade das aplicações e a necessidade de respostas rápidas, a abordagem de *Shift Left* se torna indispensável, movendo a segurança para as fases iniciais do ciclo de desenvolvimento. Neste artigo, apresentamos e exploramos o conceito de *Security Gates*, inspirado em *Quality Gates* e alinhado com a abordagem *Shift Left*, e apresentamos também o [**Security Gate**](https://github.com/instriq/security-gate/), uma solução prática que utiliza GitHub Actions para monitorar o repositório e bloquear a pipeline com base em alertas de segurança. Exploramos como essa ferramenta pode ser configurada para funcionar como um gate de segurança eficaz, visando a segurança contínua do repositório/projeto.
+
+---
 
 ### Contextualização
 
@@ -27,6 +17,8 @@ O *Shift Left*, ao mover as verificações de segurança para o início do ciclo
 Dentro desse contexto, os *Quality Gates* emergem como barreiras essenciais na pipeline de desenvolvimento, assegurando que apenas códigos que atendam aos critérios de qualidade avancem para as próximas etapas. Inspirado por esse conceito, o [**Security Gate**](https://github.com/instriq/security-gate/) surge como uma evolução natural, focando especificamente na segurança. Atuando como pontos de verificação dentro da pipeline de CI/CD, os *Security Gates* avaliam o código quanto à conformidade com políticas de segurança estabelecidas, interrompendo seu progresso caso os critérios não sejam atendidos e prevenindo que vulnerabilidades sejam introduzidas no ambiente de produção, garantindo que o software final atenda aos padrões de segurança.
 
 Assim, o [**Security Gate**](https://github.com/instriq/security-gate/) materializa esse conceito em uma solução prática e acessível para o GitHub. Com o objetivo de integrar verificações automáticas de segurança diretamente na pipeline de CI/CD, o [**Security Gate**](https://github.com/instriq/security-gate/) monitora o repositório e bloqueia o avanço da pipeline com base em alertas de segurança, como os gerados pelo DependaBot, Code Scanning e Secret Scanning. Dessa forma, o projeto visa assegurar que apenas códigos que cumpram os critérios de segurança possam avançar na pipeline, alinhando-se com a filosofia do *Shift Left* e reforçando a proteção contínua e proativa do repositório.
+
+---
 
 ### Objetivo
 
@@ -40,6 +32,8 @@ Para alcançar esse objetivo, o [**Security Gate**](https://github.com/instriq/s
 - **Suporte a alertas de segurança**: provenientes do DependaBot, Code Scanning e Secret Scanning, permitindo uma análise abrangente das vulnerabilidades e ameaças no código;  
 - **Política de vulnerabilidade baseada em Impacto**: como o número de vulnerabilidades por severidade, especificadas através das flags de limite de severidade, para bloquear a pipeline de CI/CD quando essas políticas não são atendidas;  
 - **Flexibilidade e controle**: ao permitir a configuração de quais tipos de alertas devem ser verificados, com as flags `--dependency-alerts`, `--secret-alerts` e `--code-alerts`, permitindo que os usuários escolham quais alertas devem ser monitorados conforme suas necessidades.
+
+---
 
 ### Introdução ao Security Gate
 
@@ -157,6 +151,8 @@ Nesse exemplo, o workflow executa o [**Security Gate**](https://github.com/instr
 
 A integração do [**Security Gate**](https://github.com/instriq/security-gate/) ao workflow no GitHub Actions permite a aplicação de políticas de segurança, assegurando que apenas o código que atenda aos critérios estabelecidos possa avançar na pipeline de CI/CD.
 
+---
+
 ### O Futuro do Security Gate
 
 Atualmente, o [**Security Gate**](https://github.com/instriq/security-gate/) suporta a verificação de alertas de segurança relacionados a dependências, secrets e código, assegurando que projetos atendam aos critérios de segurança estabelecidos antes da implementação. Contudo, existem algumas áreas potenciais para aprimoramento que podem ser exploradas em versões futuras para expandir suas funcionalidades e melhorar a experiência do usuário.
@@ -179,7 +175,9 @@ Para futuras versões, há planos para expandir as funcionalidades do [**Securit
 
 ---
 
-* Esta publicação foi escrita por Giovanni Sagioro: estudante de Ciência da Computação, buscador da sabedoria Perl e pesquisador de segurança. Focado em segurança de aplicativos, descoberta de vulnerabilidades e desenvolvimento de exploits. Como Larry Wall diz — ‘Coisas fáceis devem ser fáceis, e coisas difíceis devem ser possíveis’ — então estou tentando tornar as coisas difíceis possíveis.
+### Autor
+
+**Giovanni Sagioro**: estudante de Ciência da Computação, buscador da sabedoria Perl e pesquisador de segurança. Focado em segurança de aplicativos, descoberta de vulnerabilidades e desenvolvimento de exploits. Como Larry Wall diz — ‘Coisas fáceis devem ser fáceis, e coisas difíceis devem ser possíveis’ — então estou tentando tornar as coisas difíceis possíveis.
 
 ---
 
