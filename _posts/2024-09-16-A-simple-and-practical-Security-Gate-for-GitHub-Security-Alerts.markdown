@@ -1,7 +1,7 @@
 ---
 layout: post
 title: A simple and practical Security Gate for GitHub Security Alerts
-date: 2024-09-14
+date: 2024-09-16
 ---
 
 Ensuring code security before it reaches production is essential. However, achieving this requires solutions that seamlessly integrate into the continuous integration and development process. As the complexity of applications grows and the urge for faster responses rises, the *Shift Left* approach becomes critical, shifting security to the earlier stages of the development cycle. In this article, we introduce and explore the concept of *Security Gates*, inspired by *Quality Gates* and aligned with the *Shift Left* methodology. We also present [**Security Gate**](https://github.com/instriq/security-gate/), a practical solution that uses GitHub Actions to monitor repositories and enforce security measures by blocking the pipeline based on security alerts. We explore how this tool can be configured to serve as an effective security gate, aiming for the continuous security of the repository or project.
@@ -152,6 +152,40 @@ jobs:
 In this example, the workflow triggers the [**Security Gate**](https://github.com/instriq/security-gate/) on each push or pull request. The workflow checks out the code, configures environment variables with the specified thresholds for each type of alert, and then executes the [**Security Gate**](https://github.com/instriq/security-gate/) tool.
 
 Integrating the [**Security Gate**](https://github.com/instriq/security-gate/) into the GitHub Actions workflow facilitates the enforcement of security policies, ensuring that only code meeting the specified criteria can advance through the CI/CD pipeline.
+
+---
+
+### Demo
+
+This demonstration illustrates the functionality of [**Security Gate**](https://github.com/instriq/security-gate/) within a CI/CD pipeline using a fork of a vulnerable Python project, [**Vulpy**](https://github.com/fportantier/vulpy). The pipeline integrates [**Security Gate**](https://github.com/instriq/security-gate/) to detect security alerts associated with code vulnerabilities, outdated and vulnerable dependencies, and exposed secrets.
+
+The same workflow configuration described earlier is employed in this demonstration.
+
+To simulate security a exposed secrets scenario, fake exposed secrets were intentionally introduced in the vulpy.py file, as shown below:
+
+```python
+GOOGLE_API_KEY = "AIzaSyDCvp5MTJLUdtBYEKYWXJrlLju3ysphChw"
+
+STRIPE_API_KEY = "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"
+
+SLACK_WEBHOOK = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
+Additionally, older and vulnerable versions of dependencies were selected in the requirements.txt file to illustrate how Security Gate handles with an scenario of outdated and vulnerable dependencies:
+
+```text
+cryptography==3.3.1
+Flask==0.12.3
+PyJWT==1.5.0
+```
+
+When the pipeline is triggered, either by a push or pull request, Security Gate scans the codebase for potential security issues related to code vulnerabilities, dependencies, and exposed secrets. The output from the workflow run includes the following summary:
+
+![](/assets/img/security-gate-demo.png)
+
+As the number of high-severity alerts exceeded the predefined thresholds, the pipeline was automatically halted, preventing the deployment of potentially insecure code. 
+
+This example illustrates the functionality of Security Gate, which integrates security alerts within the development process using GitHub Actions. By analyzing code vulnerabilities, dependencies, and exposed secrets, the tool facilitates the monitoring of security risks in the CI/CD pipeline, ensuring that only code meeting specified security criteria proceeds to deployment.
 
 ---
 
