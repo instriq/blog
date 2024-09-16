@@ -6,7 +6,7 @@ date: 2024-09-16
 
 Ensuring code security before it reaches production is essential. However, achieving this requires solutions that seamlessly integrate into the continuous integration and development process. As the complexity of applications grows and the urge for faster responses rises, the *Shift Left* approach becomes critical, shifting security to the earlier stages of the development cycle. In this article, we introduce and explore the concept of *Security Gates*, inspired by *Quality Gates* and aligned with the *Shift Left* methodology. We also present [**Security Gate**](https://github.com/instriq/security-gate/), a practical solution that uses GitHub Actions to monitor repositories and enforce security measures by blocking the pipeline based on security alerts. We explore how this tool can be configured to serve as an effective security gate, aiming for the continuous security of the repository or project.
 
-This publication is also disponible in: [Portuguese](https://blog.lesis.lat/blog/Um-simples-e-pratico-Security-Gate-para-o-GitHub-Security-Alerts/)
+This publication is also available in: [Portuguese](https://blog.lesis.lat/blog/Um-simples-e-pratico-Security-Gate-para-o-GitHub-Security-Alerts/)
 
 ---
 
