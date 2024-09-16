@@ -153,6 +153,40 @@ A integração do [**Security Gate**](https://github.com/instriq/security-gate/)
 
 ---
 
+### Demo
+
+Esta demonstração ilustra a funcionalidade do [**Security Gate**](https://github.com/instriq/security-gate/) dentro de uma pipeline CI/CD, utilizando um fork de um projeto Python vulnerável, [**Vulpy**](https://github.com/fportantier/vulpy). A pipeline integra o [**Security Gate**](https://github.com/instriq/security-gate/) para identificar alertas de segurança relacionados a vulnerabilidades no código, dependências desatualizadas e vulneráveis, além de secrets expostas.
+
+Nesta demonstração, utiliza-se a mesma configuração de workflow descrita anteriormente.
+
+Para simular um cenário de secrets expostas, foram intencionalmente adicionadas as seguintes secrets falsas no arquivo `vulpy.py`:
+
+```python
+GOOGLE_API_KEY = "AIzaSyDCvp5MTJLUdtBYEKYWXJrlLju3ysphChw"
+
+STRIPE_API_KEY = "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"
+
+SLACK_WEBHOOK = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
+Além disso, versões antigas e vulneráveis de dependências foram definidas no arquivo `requirements.txt`, para ilustrar como o [**Security Gate**](https://github.com/instriq/security-gate/) Gate lida com um cenário de dependências desatualizadas e vulneráveis:
+
+```text
+cryptography==3.3.1
+Flask==0.12.3
+PyJWT==1.5.0
+```
+
+Quando a pipeline é acionada, seja por um push ou um pull request, o [**Security Gate**](https://github.com/instriq/security-gate/) realiza uma varredura no projeto em busca de possíveis problemas de segurança relacionados a vulnerabilidades no código, dependências e secrets expostas. A saída da execução deste workflow sumariza o seguinte:
+
+![](/assets/img/security-gate-demo.png)
+
+Como o número de alertas de alta severidade excede aos limites predefinidos, a pipeline foi automaticamente bloqueada, impedindo a implementação de código potencialmente inseguro.
+
+Este exemplo ilustra como o [**Security Gate**](https://github.com/instriq/security-gate/) integra alertas de segurança diretamente no processo de desenvolvimento por meio do GitHub Actions. Ao analisar vulnerabilidades no código, dependências e secrets expostas, a ferramenta contribui para o monitoramento de riscos de segurança na pipeline CI/CD, assegurando que apenas código que atenda aos critérios de segurança predefinidos avance para a etapa de implementação. 
+
+---
+
 ### O Futuro do Security Gate
 
 Atualmente, o [**Security Gate**](https://github.com/instriq/security-gate/) suporta a verificação de alertas de segurança relacionados a dependências, secrets e código, assegurando que projetos atendam aos critérios de segurança estabelecidos antes da implementação. Contudo, existem algumas áreas potenciais para aprimoramento que podem ser exploradas em versões futuras para expandir suas funcionalidades e melhorar a experiência do usuário.
