@@ -6,6 +6,8 @@ date:   2024-09-02
 
 Garantir a segurança do código antes de chegar à produção é crucial. No entanto, isso exige a implementação de soluções que realmente se integrem ao fluxo contínuo de integração e desenvolvimento. Com a crescente complexidade das aplicações e a necessidade de respostas rápidas, a abordagem de *Shift Left* se torna indispensável, movendo a segurança para as fases iniciais do ciclo de desenvolvimento. Neste artigo, apresentamos e exploramos o conceito de *Security Gates*, inspirado em *Quality Gates* e alinhado com a abordagem *Shift Left*, e apresentamos também o [**Security Gate**](https://github.com/instriq/security-gate/), uma solução prática que utiliza GitHub Actions para monitorar o repositório e bloquear a pipeline com base em alertas de segurança. Exploramos como essa ferramenta pode ser configurada para funcionar como um gate de segurança eficaz, visando a segurança contínua do repositório/projeto.
 
+Essa publicação está disponível também em: [Inglês](https://blog.lesis.lat/blog/A-simple-and-practical-Security-Gate-for-GitHub-Security-Alerts/)
+
 ---
 
 ### Contextualização
@@ -150,6 +152,40 @@ jobs:
 Nesse exemplo, o workflow executa o [**Security Gate**](https://github.com/instriq/security-gate/) a cada push ou pull request. O workflow realiza o checkout do código, configura as variáveis de ambiente com os limites definidos para cada tipo de alerta e, em seguida, executa a ferramenta [**Security Gate**](https://github.com/instriq/security-gate/).
 
 A integração do [**Security Gate**](https://github.com/instriq/security-gate/) ao workflow no GitHub Actions permite a aplicação de políticas de segurança, assegurando que apenas o código que atenda aos critérios estabelecidos possa avançar na pipeline de CI/CD.
+
+---
+
+### Demo
+
+Esta demonstração ilustra a funcionalidade do [**Security Gate**](https://github.com/instriq/security-gate/) dentro de uma pipeline CI/CD, utilizando um fork de um projeto Python vulnerável, [**Vulpy**](https://github.com/fportantier/vulpy). A pipeline integra o [**Security Gate**](https://github.com/instriq/security-gate/) para identificar alertas de segurança relacionados a vulnerabilidades no código, dependências desatualizadas e vulneráveis, além de secrets expostas.
+
+Nesta demonstração, utiliza-se a mesma configuração de workflow descrita anteriormente.
+
+Para simular um cenário de secrets expostas, foram intencionalmente adicionadas as seguintes secrets falsas no arquivo `vulpy.py`:
+
+```python
+GOOGLE_API_KEY = "AIzaSyDCvp5MTJLUdtBYEKYWXJrlLju3ysphChw"
+
+STRIPE_API_KEY = "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"
+
+SLACK_WEBHOOK = "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX"
+```
+
+Além disso, versões antigas e vulneráveis de dependências foram definidas no arquivo `requirements.txt`, para ilustrar como o [**Security Gate**](https://github.com/instriq/security-gate/) Gate lida com um cenário de dependências desatualizadas e vulneráveis:
+
+```text
+cryptography==3.3.1
+Flask==0.12.3
+PyJWT==1.5.0
+```
+
+Quando a pipeline é acionada, seja por um push ou um pull request, o [**Security Gate**](https://github.com/instriq/security-gate/) realiza uma varredura no projeto em busca de possíveis problemas de segurança relacionados a vulnerabilidades no código, dependências e secrets expostas. A saída da execução deste workflow sumariza o seguinte:
+
+![](/assets/img/security-gate-demo.png)
+
+Como o número de alertas de alta severidade excede aos limites predefinidos, a pipeline foi automaticamente bloqueada, impedindo a implementação de código potencialmente inseguro.
+
+Este exemplo ilustra como o [**Security Gate**](https://github.com/instriq/security-gate/) integra alertas de segurança diretamente no processo de desenvolvimento por meio do GitHub Actions. Ao analisar vulnerabilidades no código, dependências e secrets expostas, a ferramenta contribui para o monitoramento de riscos de segurança na pipeline CI/CD, assegurando que apenas código que atenda aos critérios de segurança predefinidos avance para a etapa de implementação. 
 
 ---
 
