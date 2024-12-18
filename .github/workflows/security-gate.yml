@@ -3,7 +3,7 @@ name: Security Gate - LESIS
 on:
   pull_request:
     branches:
-      - main
+      - master
       - develop
 
 permissions:
