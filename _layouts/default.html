@@ -5,20 +5,17 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 
 {%- include head.html -%}
+   <body>
+      {%- include header.html -%}
 
-<body>
+      <div class="content">
+         <div class="container">
+            {{ content }}
+         </div>
+      </div><!-- end .content -->
 
-   {%- include header.html -%}
+      {%- include footer.html -%}
+      {%- include scripts.html -%}
 
-   <div class="content">
-      <div class="container">
-         {{ content }}
-      </div>
-   </div><!-- end .content -->
-
-   {%- include footer.html -%}
-   {%- include scripts.html -%}
-
-</body>
-
+   </body>
 </html>
