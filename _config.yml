@@ -1,5 +1,5 @@
-title: blog.lesis.lat
-description: Laboratory of Engineering Studies in Information Security
+title: Laboratory of Engineering Studies in Information Security
+description: ""
 url: https://blog.lesis.lat
 baseurl: # Ex: /project-page
 paginate_path: "blog/page:num/"
@@ -15,7 +15,7 @@ plugins: [jekyll-paginate]
 paginate: 5
 
 navigation:
-    - title: Laboratory of Engineering Studies in Information Security
+    - title: Publications
       url: /index.html
 social:
     github: instriq

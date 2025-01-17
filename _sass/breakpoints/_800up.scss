@@ -58,24 +58,41 @@ HOMEPAGE STYLING
 HEADER STYLING
 ***************/
 
+
+
 .header {
-	height: 15em;
-	position: relative;
-	padding-bottom: 2em;
+    height: 20em;
+    position: relative;
+    padding-bottom: 2em;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: start; /* Garante alinhamento à esquerda */
+
+
+
+	.logo-img {
+		width: 5em;
+		height: auto; /* Mantém a proporção */
+        margin-right: 10px; /* Espaço entre a imagem e o texto */
+	}
 
 	.container {
 		position: relative;
-		top: 50%;
+		top: 20%;
 		transform: translateY(-50%);
-		max-width: 800px;
 		overflow: hidden;
+		display: inline-flex;
+		width: 50%;
 	}
 
 	h1 {
-		font-size: 3em;
-		line-height: 1;
-		letter-spacing: -3px;
-		padding-left: 0;
+		font-size: 2em;
+        line-height: 1;
+        letter-spacing: -3px;
+        padding-left: 0;
+        display: inline-block;
+        margin: 0;
+		width: 50%;
 	}
 
 	nav {
@@ -112,10 +129,8 @@ HEADER STYLING
 	}
 }
 
-// Large Header Size
-
 .header--large {
-	height: 50vh;
+	height: 10vh;
 
 	.container {
 		top: 90%;
