@@ -518,3 +518,150 @@ DARK THEME STYLING
 		border-top-color: lighten(black, 10%);
 	}
 }
+
+
+
+
+
+.header {
+    height: 20em;
+    position: relative;
+    padding-bottom: 2em;
+    display: flex;
+    align-items: center; /* Centraliza verticalmente */
+    justify-content: start; /* Garante alinhamento à esquerda */
+
+    .logo-img {
+        width: 5em;
+        height: auto; /* Mantém a proporção */
+        margin-right: 10px; /* Espaço entre a imagem e o texto */
+        max-width: 100%; /* Garante que a imagem não ultrapasse o tamanho do container */
+    }
+
+    .container {
+        position: relative;
+        top: 25%;
+        transform: translateY(-50%);
+        overflow: hidden;
+        display: inline-flex;
+        width: 50%;
+    }
+
+    h1 {
+        font-size: 2em;
+        line-height: 1;
+        letter-spacing: -3px;
+        padding-left: 0;
+        display: inline-block;
+        margin: 0;
+        width: 100%;
+    }
+
+    nav {
+        float: left;
+        clear: left;
+
+        ul {
+            margin: 0;
+
+            li {
+                display: inline;
+                line-height: 3em;
+                background: none;
+                padding: 0 5px;
+                border: none;
+
+                a {
+                    color: white;
+                    font-size: .9em;
+                    text-decoration: none;
+                    padding: 0 .25em;
+
+                    &:hover {
+                        color: darken(white, 20%);
+                    }
+                }
+
+                &.current {
+                    padding-bottom: .25em;
+                    border-bottom: 4px solid rgba(255, 255, 255, .4);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        height: auto; /* Ajusta a altura automaticamente */
+        flex-direction: row; /* Garante que o logo e o título estejam lado a lado */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: space-between; /* Garante espaço entre logo e título */
+
+        .container {
+            width: 100%; /* Usa toda a largura disponível */
+            padding: 0 1rem; /* Adiciona espaçamento interno */
+            flex-direction: row; /* Mantém o logo e o texto em linha */
+            align-items: center; /* Centraliza o conteúdo */
+        }
+
+        .logo-img {
+            width: 4em; /* Define um tamanho proporcional menor para o logo */
+            max-width: none; /* Remove limites adicionais */
+        }
+
+        h1 {
+            font-size: 1.5em; /* Ajusta o tamanho do título */
+            text-align: left; /* Alinha o texto à esquerda */
+            width: auto; /* Permite que o título ocupe o espaço necessário */
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        height: auto; /* Ajusta a altura automaticamente */
+        flex-direction: row; /* Mantém o alinhamento em linha */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: space-between; /* Garante espaço entre os elementos */
+
+        .container {
+            padding: 0 0.5rem; /* Reduz o espaçamento interno */
+        }
+
+        .logo-img {
+            width: 3em; /* Define um tamanho ainda menor para o logo */
+            max-width: none;
+        }
+
+        h1 {
+            font-size: 1.2em; /* Reduz o tamanho do título */
+        }
+    }
+}
+
+@media (max-width: 220px) {
+    .header {
+        height: auto; /* Ajusta a altura automaticamente */
+        flex-direction: row; /* Mantém o logo e o título lado a lado */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: space-between; /* Espaçamento entre logo e título */
+
+        .container {
+            padding: 0 0.5rem; /* Reduz o espaçamento interno */
+            width: 100%; /* Usa toda a largura disponível */
+        }
+
+        .logo-img {
+            width: 2.5em; /* Reduz o tamanho do logo para telas muito pequenas */
+            max-width: none; /* Remove limites adicionais */
+        }
+
+        h1 {
+            font-size: 1em; /* Diminui o tamanho do texto */
+            text-align: left; /* Alinha o título à esquerda */
+            width: auto; /* Permite que o título se ajuste ao espaço necessário */
+            margin-left: 0.5rem; /* Adiciona um pequeno espaçamento entre o logo e o título */
+        }
+    }
+}

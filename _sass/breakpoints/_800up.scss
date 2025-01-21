@@ -128,40 +128,81 @@ HEADER STYLING
     }
 }
 
-/* Ajustes para telas menores */
 @media (max-width: 768px) {
     .header {
         height: auto; /* Ajusta a altura automaticamente */
-        flex-direction: column; /* Empilha os elementos */
-        align-items: center; /* Centraliza o conteúdo */
+        flex-direction: row; /* Garante que o logo e o título estejam lado a lado */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: space-between; /* Garante espaço entre logo e título */
 
         .container {
-            width: 90%; /* Reduz o tamanho do container */
-            flex-direction: column; /* Empilha o logo e o texto */
-            align-items: center; /* Centraliza os elementos */
+            width: 100%; /* Usa toda a largura disponível */
+            padding: 0 1rem; /* Adiciona espaçamento interno */
+            flex-direction: row; /* Mantém o logo e o texto em linha */
+            align-items: center; /* Centraliza o conteúdo */
         }
 
         .logo-img {
-            width: 4em; /* Reduz o tamanho da imagem */
+            width: 4em; /* Define um tamanho proporcional menor para o logo */
+            max-width: none; /* Remove limites adicionais */
         }
 
         h1 {
-            font-size: 1.5em; /* Reduz o tamanho do texto */
-            text-align: center; /* Centraliza o texto */
-            width: auto;
+            font-size: 1.5em; /* Ajusta o tamanho do título */
+            text-align: left; /* Alinha o texto à esquerda */
+            width: auto; /* Permite que o título ocupe o espaço necessário */
         }
     }
 }
 
 @media (max-width: 480px) {
-    .logo-img {
-        width: 3em; /* Ajusta o tamanho para telas muito pequenas */
-    }
+    .header {
+        height: auto; /* Ajusta a altura automaticamente */
+        flex-direction: row; /* Mantém o alinhamento em linha */
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: space-between; /* Garante espaço entre os elementos */
 
-    h1 {
-        font-size: 1.2em; /* Ajusta o tamanho da fonte para telas menores */
+        .container {
+            padding: 0 0.5rem; /* Reduz o espaçamento interno */
+        }
+
+        .logo-img {
+            width: 3em; /* Define um tamanho ainda menor para o logo */
+            max-width: none;
+        }
+
+        h1 {
+            font-size: 1.2em; /* Reduz o tamanho do título */
+        }
     }
 }
+
+@media (max-width: 220px) {
+    .header {
+        height: auto; /* Ajusta a altura automaticamente */
+        flex-direction: row; /* Mantém o logo e o título lado a lado */
+        align-items: center; /* Centraliza verticalmente */
+        justify-content: space-between; /* Espaçamento entre logo e título */
+
+        .container {
+            padding: 0 0.5rem; /* Reduz o espaçamento interno */
+            width: 100%; /* Usa toda a largura disponível */
+        }
+
+        .logo-img {
+            width: 2.5em; /* Reduz o tamanho do logo para telas muito pequenas */
+            max-width: none; /* Remove limites adicionais */
+        }
+
+        h1 {
+            font-size: 1em; /* Diminui o tamanho do texto */
+            text-align: left; /* Alinha o título à esquerda */
+            width: auto; /* Permite que o título se ajuste ao espaço necessário */
+            margin-left: 0.5rem; /* Adiciona um pequeno espaçamento entre o logo e o título */
+        }
+    }
+}
+
 
 .header--large {
 	height: 10vh;
